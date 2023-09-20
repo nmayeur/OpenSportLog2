@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Apps", "Web Apps", "{23
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "Web\WebAPI\WebAPI.csproj", "{3780A24C-AEF3-45E4-935A-0E80ED146A75}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "webspa", "Web\WebSPA\webspa.esproj", "{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +19,19 @@ Global
 		{3780A24C-AEF3-45E4-935A-0E80ED146A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3780A24C-AEF3-45E4-935A-0E80ED146A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3780A24C-AEF3-45E4-935A-0E80ED146A75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3780A24C-AEF3-45E4-935A-0E80ED146A75} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
+		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCA8F846-B2B4-47C5-B532-D476004DB024}
