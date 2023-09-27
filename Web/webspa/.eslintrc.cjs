@@ -23,5 +23,12 @@ module.exports = {
             'warn',
             { allowConstantExport: true },
         ],
+        //https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md
+        'no-restricted-imports': [
+            'error',
+            {
+                patterns: ['@/features/*/*'],
+            },
+        ],
     },
 }
