@@ -11,6 +11,10 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "webspa", "Web\WebSPA\webspa
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0F66D96B-7184-423F-AC24-379D9328C074}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebAPI.Common", "Web\WebAPI.Common\WebAPI.Common.shproj", "{AF02E417-9BE3-4869-B4D5-E5F29FE49D7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.Common.UnitTests", "Web\WebAPI.Common.UnitTests\WebAPI.Common.UnitTests.csproj", "{674D973B-9600-437D-B009-2B236BA05D45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,10 @@ Global
 		{0F66D96B-7184-423F-AC24-379D9328C074}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F66D96B-7184-423F-AC24-379D9328C074}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F66D96B-7184-423F-AC24-379D9328C074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{674D973B-9600-437D-B009-2B236BA05D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{674D973B-9600-437D-B009-2B236BA05D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{674D973B-9600-437D-B009-2B236BA05D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{674D973B-9600-437D-B009-2B236BA05D45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,8 +46,14 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3780A24C-AEF3-45E4-935A-0E80ED146A75} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
 		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
+		{AF02E417-9BE3-4869-B4D5-E5F29FE49D7F} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
+		{674D973B-9600-437D-B009-2B236BA05D45} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCA8F846-B2B4-47C5-B532-D476004DB024}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Web\WebAPI.Common\WebAPI.Common.projitems*{3780a24c-aef3-45e4-935a-0e80ed146a75}*SharedItemsImports = 5
+		Web\WebAPI.Common\WebAPI.Common.projitems*{af02e417-9be3-4869-b4d5-e5f29fe49d7f}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

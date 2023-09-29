@@ -26,7 +26,7 @@ export const ActivitiesList = () => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [url, setUrl] = React.useState("https://webapi.ambitiouscliff-10e8762e.francecentral.azurecontainerapps.io/api/Activity/activitiesByAthlete?athleteId=1");
+    const [url] = React.useState("https://webapi.ambitiouscliff-10e8762e.francecentral.azurecontainerapps.io/api/Activity/activitiesByAthlete?athleteId=1");
 
     const handleChangePage = (_event: unknown, newPage: number) => {
         setPage(newPage);

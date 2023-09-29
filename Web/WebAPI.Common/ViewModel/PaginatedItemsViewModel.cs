@@ -1,4 +1,4 @@
-﻿namespace WebAPI.ViewModel
+﻿namespace WebAPI.Common.ViewModel
 {
     public class PaginatedItemsViewModel<TEntity> where TEntity : class
     {

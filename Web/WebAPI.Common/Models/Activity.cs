@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace WebAPI.Model
+namespace WebAPI.Common.Model
 {
     public class Activity
     {

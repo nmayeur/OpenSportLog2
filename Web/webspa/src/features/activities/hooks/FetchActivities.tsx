@@ -22,7 +22,6 @@ const useFetchActivities = (url: string) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!loading) { return; }
             console.log(`URL : ${url}`)
             const data = await fetch(url)
             const _rows: IPaginatedItemsViewModel<IActivityDto> = await data.json() as IPaginatedItemsViewModel<IActivityDto>;

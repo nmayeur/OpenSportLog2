@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Model
+﻿namespace WebAPI.Common.Model
 {
     public class Athlete
     {
