@@ -1,4 +1,4 @@
-export interface TableColumns {
+export interface ITableColumns {
     id: 'id' | 'name' | 'athlete' | 'location';
     label: string;
     minWidth?: number;

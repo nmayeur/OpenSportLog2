@@ -2,11 +2,11 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePag
 import React from "react";
 import useFetchActivities from "../hooks/FetchActivities";
 import { ActivitiesListRow } from "./ActivitiesListRow";
-import { TableColumns } from "../../../types/TableColumns";
+import { ITableColumns } from "../../../types/ITableColumns";
 
 export const ActivitiesList = () => {
 
-    const columns: readonly TableColumns[] = [
+    const columns: readonly ITableColumns[] = [
         {
             id: 'id', label: 'Identifiant', minWidth: 100, align: 'right',
             format: (value: number) => value.toLocaleString('en-US'),
@@ -26,6 +26,7 @@ export const ActivitiesList = () => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [url, setUrl] = React.useState("https://webapi.ambitiouscliff-10e8762e.francecentral.azurecontainerapps.io/api/Activity/activitiesByAthlete?athleteId=1");
 
     const handleChangePage = (_event: unknown, newPage: number) => {
         setPage(newPage);
@@ -36,10 +37,10 @@ export const ActivitiesList = () => {
         setPage(0);
     };
 
-    const { rows } = useFetchActivities("");
+    const { rows } = useFetchActivities(url);
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation={3}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

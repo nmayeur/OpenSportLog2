@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "Web\WebAPI\WebAPI
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "webspa", "Web\WebSPA\webspa.esproj", "{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0F66D96B-7184-423F-AC24-379D9328C074}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0F66D96B-7184-423F-AC24-379D9328C074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F66D96B-7184-423F-AC24-379D9328C074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F66D96B-7184-423F-AC24-379D9328C074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F66D96B-7184-423F-AC24-379D9328C074}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

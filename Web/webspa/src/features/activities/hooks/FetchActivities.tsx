@@ -1,32 +1,46 @@
 import { useEffect, useState } from "react";
 import { ActivityListRowType } from "../types";
+import { IPaginatedItemsViewModel } from "../../../types/IPaginatedItemsViewModel";
 
-function _createData(
-    id: number,
-    name: string,
-    athlete: string,
-    location: string
-): ActivityListRowType {
-    return { id, name, athlete, location};
+
+interface IAthleteDto {
+    id: number;
+    name: string;
+}
+interface IActivityDto {
+    id: number;
+    name: string;
+    athlete: IAthleteDto;
+    location: string;
 }
 
-const _rows = [
-    _createData(1, 'Test 1', 'Nico', 'Chevreuse'),
-    _createData(2, 'Test 2', 'Nico', 'LCSC'),
-    _createData(3, 'Test 3', 'Nico', 'Longchamp'),
-    _createData(4, 'Test 4', 'Nico', 'Chevreuse'),
-    _createData(5, 'Test 5', 'Nico', 'Thoiry'),
-];
-
 const useFetchActivities = (url: string) => {
+    console.log("Calling useFetchActivities")
     const [rows, setrows] = useState<ActivityListRowType[]>([]);
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState("");
 
     useEffect(() => {
-        seterror("")
-        setrows(_rows)
-        setloading(false)
+        const fetchData = async () => {
+            if (!loading) { return; }
+            console.log(`URL : ${url}`)
+            const data = await fetch(url)
+            const _rows: IPaginatedItemsViewModel<IActivityDto> = await data.json() as IPaginatedItemsViewModel<IActivityDto>;
+
+            seterror("")
+            setrows(_rows.data.map(activity => { return { id: activity.id, name: activity.name, location: activity.location, athlete: activity.athlete.name } }))
+            setloading(false)
+        }
+        fetchData().catch(error => {
+            if (error instanceof TypeError) {
+                console.error(error.message)
+                seterror(error.message)
+            } else if (error instanceof SyntaxError) {
+                console.error(error.message)
+                seterror(error.message)
+            }
+
+        });
     }, [url]);
 
     return { rows, loading, error };

@@ -1,8 +1,8 @@
 import { TableCell } from "@mui/material";
-import { TableColumns } from "../../../types/TableColumns";
+import { ITableColumns } from "../../../types/TableColumns";
 
 interface ActivitiesListRowProp {
-    column: TableColumns;
+    column: ITableColumns;
     value: string | number;
 }
 export const ActivitiesListRow = (prop: ActivitiesListRowProp) => {
