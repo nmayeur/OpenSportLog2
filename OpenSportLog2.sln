@@ -15,6 +15,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebAPI.Common", "Web\WebAPI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.Common.UnitTests", "Web\WebAPI.Common.UnitTests\WebAPI.Common.UnitTests.csproj", "{674D973B-9600-437D-B009-2B236BA05D45}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C9DFC12A-4036-4C04-91D8-ABD9C8041BF0}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "OslSqlServer", "Infrastructure\OslSqlServer\OslSqlServer.sqlproj", "{ABEB5F3E-3E93-47D7-82CC-20E2552156EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,12 @@ Global
 		{674D973B-9600-437D-B009-2B236BA05D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{674D973B-9600-437D-B009-2B236BA05D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{674D973B-9600-437D-B009-2B236BA05D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEB5F3E-3E93-47D7-82CC-20E2552156EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEB5F3E-3E93-47D7-82CC-20E2552156EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEB5F3E-3E93-47D7-82CC-20E2552156EF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{ABEB5F3E-3E93-47D7-82CC-20E2552156EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEB5F3E-3E93-47D7-82CC-20E2552156EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEB5F3E-3E93-47D7-82CC-20E2552156EF}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +58,7 @@ Global
 		{D1C14AFF-8B29-43F1-BF87-5696B329F4E7} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
 		{AF02E417-9BE3-4869-B4D5-E5F29FE49D7F} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
 		{674D973B-9600-437D-B009-2B236BA05D45} = {23EB11D7-0C7E-4757-B374-594F48038E7C}
+		{ABEB5F3E-3E93-47D7-82CC-20E2552156EF} = {C9DFC12A-4036-4C04-91D8-ABD9C8041BF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCA8F846-B2B4-47C5-B532-D476004DB024}
