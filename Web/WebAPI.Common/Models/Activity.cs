@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.Common.Model
 {
@@ -16,7 +17,15 @@ namespace WebAPI.Common.Model
         public int Power { get; set; }
         public int Temperature { get; set; }
         public ACTIVITY_SPORT Sport { get; set; }
-        public DateTimeOffset Time { get; set; }
-        public TimeSpan TimeSpan { get; set; }
+        public DateTime Time { get; set; }
+        [NotMapped]
+        public TimeSpan TimeSpan
+        {
+            get { return TimeSpan.FromTicks(TimeSpanTicks); }
+            set { 
+                TimeSpanTicks = value.Ticks; 
+            }
+        }
+        public Int64 TimeSpanTicks { get; set; }
     }
 }

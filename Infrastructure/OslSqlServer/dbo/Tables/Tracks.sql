@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Tracks] (
-    [Id]         INT  IDENTITY (1, 1) NOT NULL,
-    [Name]       TEXT NULL,
-    [ActivityId] INT  NULL,
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [ActivityId] INT           NULL,
+    [Name]       VARCHAR (100) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_TrackEntity_ActivityEntity_ActivityEntityId] FOREIGN KEY ([ActivityId]) REFERENCES [dbo].[Activities] ([Id])
 );

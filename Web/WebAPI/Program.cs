@@ -1,3 +1,5 @@
+using WebAPI.Common.Queries;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,12 +11,15 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("*");
         });
-}); 
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var services = builder.Services;
+services.AddScoped<IActivityQueries>(sp => new ActivityQueries(builder.Configuration.GetConnectionString("OslDB")));
 
 var app = builder.Build();
 

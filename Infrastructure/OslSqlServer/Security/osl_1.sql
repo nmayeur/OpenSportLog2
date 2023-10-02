@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [osl]
+    WITH PASSWORD = N',qRauwox{g3er^xeylo.qusomsFT7_&#$!~<paVxNmcijkus', SID = 0x90E3E303D14B1E4CBBFC041FE58BF1E4, DEFAULT_LANGUAGE = [Français], CHECK_EXPIRATION = ON;
+
