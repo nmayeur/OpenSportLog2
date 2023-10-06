@@ -23,6 +23,8 @@ namespace WebAPI.Common.Queries
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ActivitiesByAthleteAsync(int athleteId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
+            Console.WriteLine($"Called ActivitiesByAthleteAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
+            System.Diagnostics.Trace.WriteLine($"Called ActivitiesByAthleteAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
             var activities = await _activityQueries.GetActivitiesByAthleteAsync(athleteId, pageSize, pageIndex);
             var activitiesCount = await _activityQueries.GetActivitiesByAthleteCountAsync(athleteId);
             var model = new PaginatedItemsViewModel<Activity>(pageIndex, pageSize, activitiesCount, activities);
