@@ -24,11 +24,21 @@ namespace WebAPI.Common.Queries
         public async Task<IActionResult> ActivitiesByAthleteAsync(int athleteId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             Console.WriteLine($"Called ActivitiesByAthleteAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
-            System.Diagnostics.Trace.WriteLine($"Called ActivitiesByAthleteAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
             var activities = await _activityQueries.GetActivitiesByAthleteAsync(athleteId, pageSize, pageIndex);
             var activitiesCount = await _activityQueries.GetActivitiesByAthleteCountAsync(athleteId);
             var model = new PaginatedItemsViewModel<Activity>(pageIndex, pageSize, activitiesCount, activities);
             return Ok(model);
+        }
+
+        [HttpGet]
+        [Route("activityById")]
+        [ProducesResponseType(typeof(Activity), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ActivityByIdAsync(int activityId)
+        {
+            Console.WriteLine($"Called ActivityByIdAsync activityId={activityId}");
+            var activity = await _activityQueries.GetActivityByIdAsync(activityId);
+            return Ok(activity);
         }
     }
 }

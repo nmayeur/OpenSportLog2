@@ -58,5 +58,39 @@ namespace WebAPI.Common.Queries
             return count;
 
         }
+
+        public async Task<Activity> GetActivityByIdAsync(int activityId)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            var activity = await connection.QueryAsync<Activity, Athlete, Activity>(
+                $@"SELECT ac.Id
+      ,ac.OriginId
+      ,ac.OriginSystem
+      ,ac.Name
+      ,ac.Location
+      ,ac.Calories
+      ,ac.Sport
+      ,ac.Time
+      ,ac.TimeSpan as TimeSpanTicks
+      ,ac.Cadence
+      ,ac.HeartRate
+      ,ac.Power
+      ,ac.Temperature
+      ,ac.TracksPointsCount
+      ,ac.AthleteId
+      ,at.Name
+  FROM Activities ac inner join Athletes at on ac.athleteid=at.id
+  where ac.Id=@activityId",
+            (activity, athlete) =>
+            {
+                activity.Athlete = athlete;
+                return activity;
+            },
+            param: new { activityId },
+                splitOn: "AthleteId"
+            );
+            return activity.First();
+        }
     }
 }
