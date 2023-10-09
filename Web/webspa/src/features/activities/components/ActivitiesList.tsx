@@ -1,8 +1,7 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import { Paper } from "@mui/material";
 import React from "react";
-import useFetchActivities from "../hooks/FetchActivities";
-import { ActivitiesListRow } from "./ActivitiesListRow";
-import { ITableColumns } from "../../../types/ITableColumns";
+import useFetchActivitiesByAthlete from "../hooks/FetchActivitiesByAthlete";
+import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 
 interface ActivitiesListProps {
     athleteId: number;
@@ -11,94 +10,40 @@ interface ActivitiesListProps {
 
 export const ActivitiesList = (props: ActivitiesListProps) => {
 
-    const columns: readonly ITableColumns[] = [
+    const columns: GridColDef[] = [
         {
-            id: 'id', label: 'Identifiant', minWidth: 100, align: 'right',
-            format: (value: number) => value.toLocaleString('en-US'),
+            field: 'id',
+            headerName: 'Identifiant',
+            minWidth: 100,
+            align: 'right'
         },
-        { id: 'name', label: 'Nom', minWidth: 170 },
+        { field: 'name', headerName: 'Nom', minWidth: 170 },
         {
-            id: 'athlete',
-            label: 'Athlete',
+            field: 'athlete',
+            headerName: 'Athlete',
             minWidth: 170
         },
         {
-            id: 'location',
-            label: 'Lieu',
+            field: 'location',
+            headerName: 'Lieu',
             minWidth: 170
         }
     ];
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [url] = React.useState(`https://osl-webapiapi-dev.azure-api.net/osl-dev/api/Activity/activitiesByAthlete?athleteId=${props.athleteId}&pageSize=10&pageIndex=0`);
+    const [baseUrl] = React.useState(`https://osl-webapiapi-dev.azure-api.net/osl-dev/api`);
     const [api_key] = React.useState("2d5915334aa74fb19fefe972c952c5d6");
 
-    const handleChangePage = (_event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
+    const { rows, loading } = useFetchActivitiesByAthlete(baseUrl, api_key, props.athleteId);
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
-    const { rows } = useFetchActivities(url, api_key);
-
-    const rowOnClick = (row: MouseEvent) => {
-        const test = row.target
-        console.log(test?`Row clicked ${1}`:"");
-
+    const handleSelection = (row: GridRowSelectionModel) => {
+        const rowId = row[0]
+        console.log(rowId)
+        props.onActivityIdChange(rowId as number)
     }
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation={3}>
-            <TableContainer sx={{ maxHeight: "max-content" }}>
-                <Table stickyHeader aria-label="header" size="small">
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, index) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id} onClick={rowOnClick}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <ActivitiesListRow
-                                                    key={index + "_" + column.id}
-                                                    column={column}
-                                                    value={value}
-                                                ></ActivitiesListRow>
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <DataGrid loading={loading} rows={rows} columns={columns} onRowSelectionModelChange={handleSelection} />
         </Paper>
     );
 }

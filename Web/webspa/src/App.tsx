@@ -1,9 +1,13 @@
-import { Container, Grid, ThemeProvider, createTheme } from '@mui/material'
-import './App.css'
-import { ActivitiesList, ActivityDetails } from './features/activities'
+import { Container, Grid, ThemeProvider, createTheme } from '@mui/material';
 import { red } from '@mui/material/colors';
+import React from 'react';
+import './App.css';
+import { ActivitiesList, ActivityDetails } from './features/activities';
 
 function App() {
+    const [activityId, setActivityId] = React.useState(null as number | null)
+    const athleteId = 1
+
     const theme = createTheme({
         palette: {
             primary: {
@@ -14,6 +18,7 @@ function App() {
 
     const handleChangeActivity = (activityId: number) => {
         console.log(`Set activity ${activityId}`)
+        setActivityId(activityId)
     }
 
     return (
@@ -21,10 +26,10 @@ function App() {
             <Container maxWidth="xl">
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <ActivitiesList athleteId={1} onActivityIdChange={handleChangeActivity}></ActivitiesList>
+                        <ActivitiesList athleteId={athleteId} onActivityIdChange={handleChangeActivity}></ActivitiesList>
                     </Grid>
                     <Grid item xs={12}>
-                        <ActivityDetails activityId={2}></ActivityDetails>
+                        <ActivityDetails activityId={activityId}></ActivityDetails>
                     </Grid>
                 </Grid>
             </Container>

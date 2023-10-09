@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { ActivityListRowType } from "../types";
 import { IPaginatedItemsViewModel } from "../../../types/IPaginatedItemsViewModel";
+import { GridRowsProp } from "@mui/x-data-grid";
 
 
 interface IAthleteDto {
@@ -14,14 +14,15 @@ interface IActivityDto {
     location: string;
 }
 
-const useFetchActivities = (url: string, api_key: string) => {
-    console.log("Calling useFetchActivities")
-    const [rows, setrows] = useState<ActivityListRowType[]>([]);
+const useFetchActivitiesByAthlete = (baseUrl: string, api_key: string, athleteId: number) => {
+    console.log(`Calling useFetchActivitiesByAthlete for athleteId ${athleteId}`)
+    const [rows, setrows] = useState<GridRowsProp>([] as GridRowsProp);
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
+            const url = `${baseUrl}/Activity/activitiesByAthlete?athleteId=${athleteId}&pageSize=10&pageIndex=0`
             console.log(`URL : ${url}`)
             const requestHeaders: HeadersInit = new Headers();
             requestHeaders.set('Ocp-Apim-Subscription-Key', api_key);
@@ -42,9 +43,9 @@ const useFetchActivities = (url: string, api_key: string) => {
             }
 
         });
-    }, [url, api_key]);
+    }, [baseUrl, api_key, athleteId]);
 
     return { rows, loading, error };
 };
 
-export default useFetchActivities;
+export default useFetchActivitiesByAthlete;
