@@ -14,7 +14,7 @@ interface IActivityDto {
     location: string;
 }
 
-const useFetchActivities = (url: string) => {
+const useFetchActivities = (url: string, api_key: string) => {
     console.log("Calling useFetchActivities")
     const [rows, setrows] = useState<ActivityListRowType[]>([]);
     const [loading, setloading] = useState(true);
@@ -23,7 +23,9 @@ const useFetchActivities = (url: string) => {
     useEffect(() => {
         const fetchData = async () => {
             console.log(`URL : ${url}`)
-            const data = await fetch(url)
+            const requestHeaders: HeadersInit = new Headers();
+            requestHeaders.set('Ocp-Apim-Subscription-Key', api_key);
+            const data = await fetch(url, { headers: requestHeaders })
             const _rows: IPaginatedItemsViewModel<IActivityDto> = await data.json() as IPaginatedItemsViewModel<IActivityDto>;
 
             seterror("")
@@ -40,7 +42,7 @@ const useFetchActivities = (url: string) => {
             }
 
         });
-    }, [url]);
+    }, [url, api_key]);
 
     return { rows, loading, error };
 };

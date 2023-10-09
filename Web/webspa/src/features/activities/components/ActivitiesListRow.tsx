@@ -1,5 +1,5 @@
 import { TableCell } from "@mui/material";
-import { ITableColumns } from "../../../types/TableColumns";
+import { ITableColumns } from "../../../types/ITableColumns";
 
 interface ActivitiesListRowProp {
     column: ITableColumns;

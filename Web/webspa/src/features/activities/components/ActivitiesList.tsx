@@ -4,7 +4,12 @@ import useFetchActivities from "../hooks/FetchActivities";
 import { ActivitiesListRow } from "./ActivitiesListRow";
 import { ITableColumns } from "../../../types/ITableColumns";
 
-export const ActivitiesList = () => {
+interface ActivitiesListProps {
+    athleteId: number;
+    onActivityIdChange: (activityId: number) => void
+}
+
+export const ActivitiesList = (props: ActivitiesListProps) => {
 
     const columns: readonly ITableColumns[] = [
         {
@@ -26,7 +31,8 @@ export const ActivitiesList = () => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [url] = React.useState("https://webapi.ambitiouscliff-10e8762e.francecentral.azurecontainerapps.io/api/Activity/activitiesByAthlete?athleteId=1");
+    const [url] = React.useState(`https://osl-webapiapi-dev.azure-api.net/osl-dev/api/Activity/activitiesByAthlete?athleteId=${props.athleteId}&pageSize=10&pageIndex=0`);
+    const [api_key] = React.useState("2d5915334aa74fb19fefe972c952c5d6");
 
     const handleChangePage = (_event: unknown, newPage: number) => {
         setPage(newPage);
@@ -37,12 +43,18 @@ export const ActivitiesList = () => {
         setPage(0);
     };
 
-    const { rows } = useFetchActivities(url);
+    const { rows } = useFetchActivities(url, api_key);
+
+    const rowOnClick = (row: MouseEvent) => {
+        const test = row.target
+        console.log(test?`Row clicked ${1}`:"");
+
+    }
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation={3}>
-            <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader aria-label="sticky table">
+            <TableContainer sx={{ maxHeight: "max-content" }}>
+                <Table stickyHeader aria-label="header" size="small">
                     <TableHead>
                         <TableRow>
                             {columns.map((column) => (
@@ -61,7 +73,7 @@ export const ActivitiesList = () => {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, index) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id} onClick={rowOnClick}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
