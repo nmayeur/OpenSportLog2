@@ -12,6 +12,11 @@ interface IActivityDto {
     name: string;
     athlete: IAthleteDto;
     location: string;
+    calories: number;
+    temperature: number;
+    sport: number;
+    time: Date;
+    timeSpanTicks: number;
 }
 
 const useFetchActivitiesByAthlete = (baseUrl: string, api_key: string, athleteId: number) => {
@@ -30,7 +35,19 @@ const useFetchActivitiesByAthlete = (baseUrl: string, api_key: string, athleteId
             const _rows: IPaginatedItemsViewModel<IActivityDto> = await data.json() as IPaginatedItemsViewModel<IActivityDto>;
 
             seterror("")
-            setrows(_rows.data.map(activity => { return { id: activity.id, name: activity.name, location: activity.location, athlete: activity.athlete.name } }))
+            setrows(_rows.data.map(activity => {
+                return {
+                    id: activity.id,
+                    name: activity.name,
+                    location: activity.location,
+                    athlete: activity.athlete.name,
+                    sport: activity.sport,
+                    temperature: activity.temperature,
+                    time: activity.time,
+                    timespanTicks: activity.timeSpanTicks,
+                    calories: activity.calories,
+                }
+            }))
             setloading(false)
         }
         fetchData().catch(error => {

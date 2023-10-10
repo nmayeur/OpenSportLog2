@@ -8,8 +8,18 @@ interface IAthleteDto {
 interface IActivityDto {
     id: number;
     name: string;
+    originId: string;
+    originSystem: string;
     athlete: IAthleteDto;
     location: string;
+    calories: number;
+    temperature: number;
+    sport: number;
+    time: Date;
+    timespanTicks: number;
+    heartRate: number;
+    cadence: number;
+    power: number;
 }
 
 const useFetchActivityById = (baseUrl: string, api_key: string, activityId: number | null) => {
