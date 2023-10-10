@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { IPaginatedItemsViewModel } from "../../../types/IPaginatedItemsViewModel";
-import { GridRowsProp } from "@mui/x-data-grid";
 
 
 interface IAthleteDto {

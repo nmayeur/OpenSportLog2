@@ -1,19 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using WebAPI.Dto;
 
-namespace WebAPI.Common.Model
+namespace WebAPI.Common.Dto
 {
-    public class Activity
+    public class ActivityForListDto
     {
         public int Id { get; set; }
-        public Athlete Athlete { get; set; }
-        public string OriginId { get; set; }
-        public string OriginSystem { get; set; }
+        public AthleteDto Athlete { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
         public int Calories { get; set; }
-        public int HeartRate { get; set; }
-        public int Cadence { get; set; }
-        public int Power { get; set; }
         public int Temperature { get; set; }
         public ACTIVITY_SPORT Sport { get; set; }
         public DateTime Time { get; set; }
@@ -21,8 +17,9 @@ namespace WebAPI.Common.Model
         public TimeSpan TimeSpan
         {
             get { return TimeSpan.FromTicks(TimeSpanTicks); }
-            set { 
-                TimeSpanTicks = value.Ticks; 
+            set
+            {
+                TimeSpanTicks = value.Ticks;
             }
         }
         public long TimeSpanTicks { get; set; }

@@ -1,4 +1,9 @@
+using AutoMapper;
+using System;
+using System.Reflection;
+using WebAPI.Common.Dto;
 using WebAPI.Common.Queries;
+using WebAPI.Common.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +25,8 @@ builder.Services.AddSwaggerGen();
 
 var services = builder.Services;
 services.AddScoped<IActivityQueries>(sp => new ActivityQueries(builder.Configuration.GetConnectionString("OslDB")));
+
+services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>(), Assembly.GetAssembly(typeof(AthleteDto)));
 
 var app = builder.Build();
 

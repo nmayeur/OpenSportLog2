@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Athlete.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Queries\ActivityQueries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Queries\IActivityQueries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MappingProfile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\PaginatedItemsViewModel.cs" />
   </ItemGroup>
 </Project>

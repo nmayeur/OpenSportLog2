@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using WebAPI.Dto;
 
-namespace WebAPI.Common.Model
+namespace WebAPI.Common.Dto
 {
-    public class Activity
+    public class ActivityDto
     {
         public int Id { get; set; }
-        public Athlete Athlete { get; set; }
+        public AthleteDto Athlete { get; set; }
         public string OriginId { get; set; }
         public string OriginSystem { get; set; }
         public string Name { get; set; }
@@ -21,8 +22,9 @@ namespace WebAPI.Common.Model
         public TimeSpan TimeSpan
         {
             get { return TimeSpan.FromTicks(TimeSpanTicks); }
-            set { 
-                TimeSpanTicks = value.Ticks; 
+            set
+            {
+                TimeSpanTicks = value.Ticks;
             }
         }
         public long TimeSpanTicks { get; set; }

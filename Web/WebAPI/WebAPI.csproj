@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.151" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Dapper" Version="2.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
@@ -27,5 +28,7 @@
   </ItemGroup>
 
   <Import Project="..\WebAPI.Common\WebAPI.Common.projitems" Label="Shared" />
+
+  <Import Project="..\WebAPI.Dto\WebAPI.Dto.projitems" Label="Shared" />
 
 </Project>
