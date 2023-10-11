@@ -16,7 +16,7 @@ interface IActivityDto {
     temperature: number;
     sport: number;
     time: Date;
-    timespanTicks: number;
+    timeSpanTicks: number;
     heartRate: number;
     cadence: number;
     power: number;
@@ -43,6 +43,9 @@ const useFetchActivityById = (baseUrl: string, api_key: string, activityId: numb
             requestHeaders.set('Ocp-Apim-Subscription-Key', api_key);
             const data = await fetch(url, { headers: requestHeaders })
             const dto = await data.json() as IActivityDto
+            if (dto.time) {
+                dto.time = new Date(dto.time)
+            }
             setActivity(dto)
             seterror("")
             setloading(false)
