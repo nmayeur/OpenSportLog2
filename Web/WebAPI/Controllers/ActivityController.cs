@@ -25,26 +25,26 @@ namespace WebAPI.Common.Queries
         [Route("activitiesByAthlete")]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<ActivityForListDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ActivitiesByAthleteAsync(int athleteId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        public async Task<ActionResult<PaginatedItemsViewModel<ActivityForListDto>>> GetActivitiesByAthleteAsync(int athleteId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             Console.WriteLine($"Called ActivitiesByAthleteAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
             var activities = await _activityQueries.GetActivitiesByAthleteAsync(athleteId, pageSize, pageIndex);
             var activitiesCount = await _activityQueries.GetActivitiesByAthleteCountAsync(athleteId);
             var activityDtos = _mapper.Map<IList<ActivityForListDto>>(activities);
             var model = new PaginatedItemsViewModel<ActivityForListDto>(pageIndex, pageSize, activitiesCount, activityDtos);
-            return Ok(model);
+            return model;
         }
 
         [HttpGet]
         [Route("activityById")]
         [ProducesResponseType(typeof(ActivityDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ActivityByIdAsync(int activityId)
+        public async Task<ActionResult<ActivityDto>> GetActivityByIdAsync(int activityId)
         {
             Console.WriteLine($"Called ActivityByIdAsync activityId={activityId}");
             var activity = await _activityQueries.GetActivityByIdAsync(activityId);
             var activityDto = _mapper.Map<ActivityDto>(activity);
-            return Ok(activityDto);
+            return activityDto;
         }
     }
 }

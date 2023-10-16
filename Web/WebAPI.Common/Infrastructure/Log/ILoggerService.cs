@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebAPI.Common.Utils
+namespace WebAPI.Common.Infrastructure.Log
 {
     public interface ILoggerService
     {

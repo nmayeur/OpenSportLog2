@@ -9,11 +9,14 @@
     <Import_RootNamespace>WebAPI.Common</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Log\NLoggerService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Activity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ACTIVITY_SPORT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Athlete.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Queries\ActivityQueries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Queries\IActivityQueries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Log\ILoggerService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\MappingProfile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\PaginatedItemsViewModel.cs" />
   </ItemGroup>
