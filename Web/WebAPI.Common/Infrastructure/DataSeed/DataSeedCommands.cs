@@ -50,5 +50,19 @@ namespace WebAPI.Common.Infrastructure.DataSeed
                 activity.TimeSpanTicks
             });
         }
+
+        public void CreateTrack(Track track)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            connection.Execute("SET IDENTITY_INSERT tracks ON");
+            string sql = $"insert into tracks (Id,ActivityId,Name) values (@Id,@ActivityId,@Name)";
+            connection.Execute(sql, new
+            {
+                track.Id,
+                ActivityId = track.Activity.Id,
+                track.Name
+            });
+        }
     }
 }

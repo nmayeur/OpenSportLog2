@@ -53,6 +53,14 @@ namespace WebAPI.Common.Infrastructure.DataSeed
                     _commands.CreateActivity(activity);
                 }
             }
+            if (!await _CheckTrackTable())
+            {
+                _CreateTrackTable();
+                foreach (var track in _GetTracksFromFile())
+                {
+                    _commands.CreateTrack(track);
+                }
+            }
             return true;
         }
 
@@ -221,7 +229,103 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             return activity;
         }
 
+        private Dictionary<int, Activity> _GetActivitiesLookup()
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            var activities = connection.Query<Activity>("select Id,Name from Activities");
+            return activities.ToDictionary(a => a.Id);
+        }
         #endregion
+        #region Track data
+        private void _CreateTrackTable()
+        {
+            string createActivityFile = Path.Combine(_sourcePath, "Setup", "tracks.sql");
+
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            var tsql = File.ReadAllText(createActivityFile);
+            foreach (var bloc in tsql.Split("GO"))
+            {
+                SqlCommand command = new SqlCommand(bloc, connection);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private async Task<bool> _CheckTrackTable()
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var count = await connection.QuerySingleAsync<int>($"select count(*) from information_schema.tables where table_name ='Tracks'");
+            return count > 0;
+        }
+
+        private IEnumerable<Track> _GetTracksFromFile()
+        {
+            string csvFileTracks = Path.Combine(_sourcePath, "Setup", "tracks.csv");
+
+            string[] csvheaders;
+            try
+            {
+                string[] requiredHeaders = { "Id", "ActivityId", "Name" };
+                csvheaders = _GetHeaders(csvFileTracks, requiredHeaders);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error reading CSV headers", ex);
+                throw;
+            }
+
+            return File.ReadAllLines(csvFileTracks)
+                                        .Skip(1) // skip header row
+                                        .Select(row => Regex.Split(row, ";(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"))
+                                        .SelectTry(columns => _CreateTrack(columns, csvheaders, _GetActivitiesLookup()))
+                                        .OnCaughtException(ex => { _logger.Error("Error creating track while seeding database", ex); return null; })
+                                        .Where(x => x != null);
+        }
+
+        private Track _CreateTrack(string[] columns, string[] headers, Dictionary<int, Activity> activitiesLookup)
+        {
+            if (columns.Count() != headers.Count())
+            {
+                throw new Exception($"column count '{columns.Count()}' not the same as headers count'{headers.Count()}'");
+            }
+            string activityIdString = _GetStringValue(columns, headers, "ActivityId");
+            if (!int.TryParse(activityIdString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out int activityId))
+            {
+                throw new Exception($"activityId={activityIdString}is not a valid int number");
+            }
+            if (!activitiesLookup.ContainsKey(activityId))
+            {
+                throw new Exception($"type={activityId} does not exist in activities");
+            }
+
+            string trackIdString = _GetStringValue(columns, headers, "id");
+            if (!int.TryParse(activityIdString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out int id))
+            {
+                throw new Exception($"trackId={activityIdString}is not a valid int number");
+            }
+
+            var track = new Track
+            {
+                Id = id,
+                Activity = activitiesLookup[activityId],
+                Name = _GetStringValue(columns, headers, "name")
+            };
+            return track;
+        }
+
+        private Dictionary<int, Track> _GetTracksLookup()
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            var tracks = connection.Query<Track>("select Id,Name from Tracks");
+            return tracks.ToDictionary(a => a.Id);
+        }
+        #endregion
+
+        #region utility functions
 
         private string _GetStringValue(string[] columns, string[] headers, string columnName)
         {
@@ -276,7 +380,9 @@ namespace WebAPI.Common.Infrastructure.DataSeed
 
             return csvheaders;
         }
+        #endregion
 
+        #region DDL
         private void _CreateDatabase(string dbName)
         {
             using var connection = new SqlConnection(_connectionStringMaster);
@@ -292,5 +398,6 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             var databaseCount = await connection.QuerySingleAsync<int>($"USE master; SELECT count(*) FROM sys.databases WHERE Name = '{dbName}'");
             return databaseCount > 0;
         }
+        #endregion
     }
 }
