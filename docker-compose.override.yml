@@ -1,6 +1,15 @@
 version: '3.4'
 
 services:
+  sqldata:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5434:1433"
+    volumes:
+      - webapi-sqldata:/var/opt/mssql
+
   webapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -11,3 +20,6 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+volumes:
+  webapi-sqldata:
+    external: false

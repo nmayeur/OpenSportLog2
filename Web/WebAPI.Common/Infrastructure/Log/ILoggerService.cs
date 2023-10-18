@@ -11,7 +11,5 @@ namespace WebAPI.Common.Infrastructure.Log
         void Warn(string message);
         void Error(string message);
         void Error(string message, Exception exception);
-
-        bool IsDebugEnabled();
     }
 }

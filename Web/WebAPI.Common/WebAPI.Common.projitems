@@ -9,7 +9,9 @@
     <Import_RootNamespace>WebAPI.Common</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\LinqSelectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeed.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeedCommands.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Log\NLoggerService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Activity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ACTIVITY_SPORT.cs" />
