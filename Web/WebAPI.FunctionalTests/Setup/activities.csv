@@ -1,5 +1,5 @@
 ﻿Id;AthleteId;OriginSystem;Name;Location;Calories;Sport;Cadence;HeartRate;Power;Temperature;Time;OriginId;TimeSpan
-1;1;FITLOG;Sortie groupe 1... on s’accroche ;Vallée de Chevreuse;2675;2;0;146;156;15;2018-09-09 06:58:27.000;0846d9d6-5fd9-499f-96c2-91ae80;1,28E+11
+1;1;FITLOG;Sortie groupe 1... on s’accroche ;Vallée de Chevreuse;2675;2;0;146;156;15;2018-09-09 06:58:27.000;0846d9d6-5fd9-499f-96c2-91ae80;128000000000
 2;1;FITLOG;08/04/2015 Rueil Malmaison, IDF, France;Saint Cucufa;1089;1;79;149;0;28;2015-08-04 15:01:31.000;e02ecce8-4c27-4e5f-bf3e-1b347e;48710000000
 3;1;FITLOG;;Longchamps;78;2;0;136;225;22;2019-06-09 13:04:40.000;b32d246e-1dff-4229-9a53-805023;66020000000
 4;1;FITLOG;Gran Fondo - Welcome Workout;Zwift;688;2;84;122;205;8;2020-04-13 08:02:13.000;5bf7b930-d9b1-4965-91e9-79ba35;30610000000

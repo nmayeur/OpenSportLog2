@@ -225,11 +225,17 @@ namespace WebAPI.Common.Infrastructure.DataSeed
 
         private string _GetStringValue(string[] columns, string[] headers, string columnName)
         {
-            return columns[Array.IndexOf(headers, columnName.ToLowerInvariant())].Trim('"').Trim();
+            var val = columns[Array.IndexOf(headers, columnName.ToLowerInvariant())].Trim('"').Trim();
+            return val;
         }
         private int _GetIntValue(string[] columns, string[] headers, string columnName)
         {
             int.TryParse(_GetStringValue(columns, headers, columnName), out int val);
+            return val;
+        }
+        private long _GetLongValue(string[] columns, string[] headers, string columnName)
+        {
+            long.TryParse(_GetStringValue(columns, headers, columnName), out long val);
             return val;
         }
         private DateTime _GetDateTimeValue(string[] columns, string[] headers, string columnName)
@@ -239,7 +245,7 @@ namespace WebAPI.Common.Infrastructure.DataSeed
         }
         private TimeSpan _GetTimeSpanValue(string[] columns, string[] headers, string columnName)
         {
-            TimeSpan.TryParse(_GetStringValue(columns, headers, columnName), out TimeSpan val);
+            var val = TimeSpan.FromTicks(_GetLongValue(columns, headers, columnName));
             return val;
         }
 

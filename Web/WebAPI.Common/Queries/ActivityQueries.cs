@@ -31,7 +31,6 @@ namespace WebAPI.Common.Queries
       ,ac.HeartRate
       ,ac.Power
       ,ac.Temperature
-      ,ac.TracksPointsCount
       ,ac.AthleteId
       ,at.Name
   FROM Activities ac inner join Athletes at on ac.athleteid=at.id
@@ -77,7 +76,6 @@ namespace WebAPI.Common.Queries
       ,ac.HeartRate
       ,ac.Power
       ,ac.Temperature
-      ,ac.TracksPointsCount
       ,ac.AthleteId
       ,at.Name
   FROM Activities ac inner join Athletes at on ac.athleteid=at.id
