@@ -64,5 +64,18 @@ namespace WebAPI.Common.Infrastructure.DataSeed
                 track.Name
             });
         }
+
+        public void CreateTrackSegment(TrackSegment trackSegment)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            connection.Execute("SET IDENTITY_INSERT tracksegments ON");
+            string sql = $"insert into tracksegments (Id,TrackId) values (@Id,@TrackId)";
+            connection.Execute(sql, new
+            {
+                trackSegment.Id,
+                TrackId = trackSegment.Track.Id
+            });
+        }
     }
 }

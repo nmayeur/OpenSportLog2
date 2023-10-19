@@ -61,6 +61,14 @@ namespace WebAPI.Common.Infrastructure.DataSeed
                     _commands.CreateTrack(track);
                 }
             }
+            if (!await _CheckTrackSegmentTable())
+            {
+                _CreateTrackSegmentTable();
+                foreach (var trackSegment in _GetTrackSegmentsFromFile())
+                {
+                    _commands.CreateTrackSegment(trackSegment);
+                }
+            }
             return true;
         }
 
@@ -237,14 +245,15 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             return activities.ToDictionary(a => a.Id);
         }
         #endregion
+
         #region Track data
         private void _CreateTrackTable()
         {
-            string createActivityFile = Path.Combine(_sourcePath, "Setup", "tracks.sql");
+            string createTracksFile = Path.Combine(_sourcePath, "Setup", "tracks.sql");
 
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
-            var tsql = File.ReadAllText(createActivityFile);
+            var tsql = File.ReadAllText(createTracksFile);
             foreach (var bloc in tsql.Split("GO"))
             {
                 SqlCommand command = new SqlCommand(bloc, connection);
@@ -302,7 +311,7 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             }
 
             string trackIdString = _GetStringValue(columns, headers, "id");
-            if (!int.TryParse(activityIdString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out int id))
+            if (!int.TryParse(trackIdString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out int id))
             {
                 throw new Exception($"trackId={activityIdString}is not a valid int number");
             }
@@ -321,6 +330,93 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
             var tracks = connection.Query<Track>("select Id,Name from Tracks");
+            return tracks.ToDictionary(a => a.Id);
+        }
+        #endregion
+
+        #region TrackSegment data
+        private void _CreateTrackSegmentTable()
+        {
+            string createTrackSegmentFile = Path.Combine(_sourcePath, "Setup", "tracksegments.sql");
+
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            var tsql = File.ReadAllText(createTrackSegmentFile);
+            foreach (var bloc in tsql.Split("GO"))
+            {
+                SqlCommand command = new SqlCommand(bloc, connection);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private async Task<bool> _CheckTrackSegmentTable()
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var count = await connection.QuerySingleAsync<int>($"select count(*) from information_schema.tables where table_name ='Tracksegments'");
+            return count > 0;
+        }
+
+        private IEnumerable<TrackSegment> _GetTrackSegmentsFromFile()
+        {
+            string csvFileTracks = Path.Combine(_sourcePath, "Setup", "tracksegments.csv");
+
+            string[] csvheaders;
+            try
+            {
+                string[] requiredHeaders = { "Id", "TrackId" };
+                csvheaders = _GetHeaders(csvFileTracks, requiredHeaders);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error reading CSV headers", ex);
+                throw;
+            }
+
+            return File.ReadAllLines(csvFileTracks)
+                                        .Skip(1) // skip header row
+                                        .Select(row => Regex.Split(row, ";(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"))
+                                        .SelectTry(columns => _CreateTrackSegment(columns, csvheaders, _GetTracksLookup()))
+                                        .OnCaughtException(ex => { _logger.Error("Error creating track segment while seeding database", ex); return null; })
+                                        .Where(x => x != null);
+        }
+
+        private TrackSegment _CreateTrackSegment(string[] columns, string[] headers, Dictionary<int, Track> tracksLookup)
+        {
+            if (columns.Count() != headers.Count())
+            {
+                throw new Exception($"column count '{columns.Count()}' not the same as headers count'{headers.Count()}'");
+            }
+            string trackIdString = _GetStringValue(columns, headers, "TrackId");
+            if (!int.TryParse(trackIdString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out int trackId))
+            {
+                throw new Exception($"trackId={trackIdString}is not a valid int number");
+            }
+            if (!tracksLookup.ContainsKey(trackId))
+            {
+                throw new Exception($"type={trackId} does not exist in activities");
+            }
+
+            string trackSegmentIdString = _GetStringValue(columns, headers, "id");
+            if (!int.TryParse(trackSegmentIdString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out int id))
+            {
+                throw new Exception($"trackSegmentId={trackSegmentIdString}is not a valid int number");
+            }
+
+            var trackSegment = new TrackSegment
+            {
+                Id = id,
+                Track = tracksLookup[trackId]
+            };
+            return trackSegment;
+        }
+
+        private Dictionary<int, TrackSegment> _GetTrackSegmentssLookup()
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            var tracks = connection.Query<TrackSegment>("select Id from Tracksegments");
             return tracks.ToDictionary(a => a.Id);
         }
         #endregion
