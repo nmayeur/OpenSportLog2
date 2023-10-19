@@ -45,6 +45,7 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             await _UpdateTable(new DataSeedActivities(_connectionString, _sourcePath, _logger));
             await _UpdateTable(new DataSeedTracks(_connectionString, _sourcePath, _logger));
             await _UpdateTable(new DataSeedTrackSegments(_connectionString, _sourcePath, _logger));
+            await _UpdateTable(new DataSeedTrackPoints(_connectionString, _sourcePath, _logger));
 
             return true;
         }

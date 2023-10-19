@@ -87,6 +87,11 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             int.TryParse(_GetStringValue(columns, headers, columnName), out int val);
             return val;
         }
+        protected static decimal _GetDecimalValue(string[] columns, string[] headers, string columnName)
+        {
+            decimal.TryParse(_GetStringValue(columns, headers, columnName), out decimal val);
+            return val;
+        }
         protected static long _GetLongValue(string[] columns, string[] headers, string columnName)
         {
             long.TryParse(_GetStringValue(columns, headers, columnName), out long val);

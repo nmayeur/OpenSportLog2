@@ -1,6 +1,5 @@
 ﻿CREATE TABLE [dbo].[TrackPoints] (
     [Id]             INT      IDENTITY (1, 1) NOT NULL,
-    [Time1]          TEXT     NOT NULL,
     [Latitude]       REAL     NOT NULL,
     [Longitude]      REAL     NOT NULL,
     [Elevation]      REAL     NOT NULL,
