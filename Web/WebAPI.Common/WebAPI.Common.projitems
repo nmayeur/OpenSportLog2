@@ -11,7 +11,12 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\LinqSelectExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeed.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeedCommands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeedEntityBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeedActivities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeedAthletes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeedTracks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\DataSeedTrackSegments.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\DataSeed\IDataSeedEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructure\Log\NLoggerService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TrackSegment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Track.cs" />

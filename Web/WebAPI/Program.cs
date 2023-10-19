@@ -51,7 +51,6 @@ app.MapControllers();
 
 await new DataSeed(builder.Configuration.GetConnectionString("OslDB") ?? "",
     "",
-    app.Services.GetService<ILoggerService>(),
-    new DataSeedCommands(builder.Configuration.GetConnectionString("OslDB") ?? "")).SeedAsync();
+    app.Services.GetService<ILoggerService>()).SeedAsync();
 
 app.Run();
