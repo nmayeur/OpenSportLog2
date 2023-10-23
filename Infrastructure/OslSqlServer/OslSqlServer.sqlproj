@@ -73,6 +73,7 @@
     <Build Include="Security\RoleMemberships.sql" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)dbo\Tables\*.sql $(SolutionDir)\Web\WebAPI.FunctionalTests\Setup</PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)dbo\Tables\*.sql $(SolutionDir)\Web\WebAPI.FunctionalTests\Setup
+copy $(ProjectDir)dbo\Tables\*.sql $(SolutionDir)\Web\WebAPI\Setup</PostBuildEvent>
   </PropertyGroup>
 </Project>

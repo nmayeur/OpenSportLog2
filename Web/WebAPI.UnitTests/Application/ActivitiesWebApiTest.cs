@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Common.Dto;
+using WebAPI.Common.Infrastructure.Log;
 using WebAPI.Common.Model;
 using WebAPI.Common.Queries;
 using WebAPI.Common.Utils;
@@ -40,7 +41,8 @@ namespace WebAPI.UnitTests.Application
                 .Returns(Task.FromResult(fakeDynamicResult));
 
             //Act
-            var activityController = new ActivityController(_activityQueriesMock.Object, _mapper);
+            var logger = new NLoggerService("WebApiTest");
+            var activityController = new ActivityController(_activityQueriesMock.Object, _mapper, logger);
             var actionResult = await activityController.GetActivityByIdAsync(fakeActivityId);
 
             //Assert
@@ -69,7 +71,8 @@ namespace WebAPI.UnitTests.Application
                 .Returns(Task.FromResult(fakeActivities.Count));
 
             //Act
-            var activityController = new ActivityController(_activityQueriesMock.Object, _mapper);
+            var logger = new NLoggerService("WebApiTest");
+            var activityController = new ActivityController(_activityQueriesMock.Object, _mapper, logger);
             var actionResult = await activityController.GetActivitiesByAthleteAsync(fakeAthleteId);
 
             //Assert

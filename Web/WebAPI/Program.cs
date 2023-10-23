@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using WebAPI;
 using WebAPI.Common.Dto;
 using WebAPI.Common.Infrastructure.DataSeed;
 using WebAPI.Common.Infrastructure.Log;
@@ -46,11 +48,18 @@ app.UseHttpsRedirection();
 app.UseCors();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
-await new DataSeed(builder.Configuration.GetConnectionString("OslDB") ?? "",
-    "",
-    app.Services.GetService<ILoggerService>()).SeedAsync();
-
+if (builder.Configuration.GetValue<bool>("IsTest"))
+{
+    await new DataSeed(builder.Configuration.GetConnectionString("OslDB") ?? "",
+        "",
+        app.Services.GetService<ILoggerService>()).SeedAsync();
+}
+else
+{
+    await new DataSeed(builder.Configuration.GetConnectionString("OslDB") ?? "",
+        "",
+        app.Services.GetService<ILoggerService>()).SyncStructureAsync();
+}
 app.Run();

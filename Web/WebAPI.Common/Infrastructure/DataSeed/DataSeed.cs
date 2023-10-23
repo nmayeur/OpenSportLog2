@@ -22,14 +22,17 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             _sourcePath = sourcePath;
         }
 
-        private async Task<bool> _UpdateTable<T>(IDataSeedEntity<T> dataSeedAthletes)
+        private async Task<bool> _UpdateTable<T>(IDataSeedEntity<T> dataSeedAthletes, bool withData = true)
         {
             if (!await dataSeedAthletes.CheckTableAsync())
             {
                 dataSeedAthletes.CreateTable();
-                foreach (var athlete in dataSeedAthletes.GetFromFile())
+                if (withData)
                 {
-                    dataSeedAthletes.InsertData(athlete);
+                    foreach (var athlete in dataSeedAthletes.GetFromFile())
+                    {
+                        dataSeedAthletes.InsertData(athlete);
+                    }
                 }
             }
             return true;
@@ -46,6 +49,17 @@ namespace WebAPI.Common.Infrastructure.DataSeed
             await _UpdateTable(new DataSeedTracks(_connectionString, _sourcePath, _logger));
             await _UpdateTable(new DataSeedTrackSegments(_connectionString, _sourcePath, _logger));
             await _UpdateTable(new DataSeedTrackPoints(_connectionString, _sourcePath, _logger));
+
+            return true;
+        }
+
+        public async Task<bool> SyncStructureAsync()
+        {
+            await _UpdateTable(new DataSeedAthletes(_connectionString, _sourcePath, _logger), false);
+            await _UpdateTable(new DataSeedActivities(_connectionString, _sourcePath, _logger), false);
+            await _UpdateTable(new DataSeedTracks(_connectionString, _sourcePath, _logger), false);
+            await _UpdateTable(new DataSeedTrackSegments(_connectionString, _sourcePath, _logger), false);
+            await _UpdateTable(new DataSeedTrackPoints(_connectionString, _sourcePath, _logger), false);
 
             return true;
         }

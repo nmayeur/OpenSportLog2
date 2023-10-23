@@ -11,7 +11,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\WebAPI.Common\Queries\IActivityQueries.cs" Link="IActivityQueries.cs" />
+    <None Remove="Setup\Activities.sql" />
+    <None Remove="Setup\Athletes.sql" />
+    <None Remove="Setup\TrackPoints.sql" />
+    <None Remove="Setup\Tracks.sql" />
+    <None Remove="Setup\TrackSegments.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Setup\Activities.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Setup\Athletes.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Setup\TrackPoints.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Setup\Tracks.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Setup\TrackSegments.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
