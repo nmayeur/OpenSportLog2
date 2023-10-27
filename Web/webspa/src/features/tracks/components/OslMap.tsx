@@ -1,4 +1,3 @@
-//import { useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet"
 
 export const OslMap = () => {
@@ -9,6 +8,5 @@ export const OslMap = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
-        {/*    <MyComponent />*/}
         </MapContainer>)
 }
