@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Common.Dto;
 using WebAPI.Common.Infrastructure.Log;
+using WebAPI.Common.Queries;
 using WebAPI.Common.ViewModel;
+using WebAPI.Dto;
 
-namespace WebAPI.Common.Queries
+namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

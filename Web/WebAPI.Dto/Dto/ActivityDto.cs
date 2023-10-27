@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using WebAPI.Dto;
 
-namespace WebAPI.Common.Dto
+namespace WebAPI.Dto
 {
     public class ActivityDto
     {

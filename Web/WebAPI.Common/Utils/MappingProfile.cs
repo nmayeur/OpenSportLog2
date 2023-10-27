@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using WebAPI.Common.Dto;
 using WebAPI.Common.Model;
+using WebAPI.Dto;
 
 namespace WebAPI.Common.Utils
 {

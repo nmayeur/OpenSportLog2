@@ -1,11 +1,9 @@
-using Microsoft.Extensions.Configuration;
 using System.Reflection;
-using WebAPI;
-using WebAPI.Common.Dto;
 using WebAPI.Common.Infrastructure.DataSeed;
 using WebAPI.Common.Infrastructure.Log;
 using WebAPI.Common.Queries;
 using WebAPI.Common.Utils;
+using WebAPI.Dto;
 
 var builder = WebApplication.CreateBuilder(args);
 

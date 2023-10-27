@@ -9,6 +9,7 @@
     <Import_RootNamespace>WebAPI.Dto</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Dto\TrackForListDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dto\ActivityForListDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dto\ActivityDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dto\ACTIVITY_SPORT.cs" />

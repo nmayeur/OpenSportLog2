@@ -1,6 +1,6 @@
 ﻿namespace WebAPI.Dto
 {
-    public class AthleteDto
+    public class TrackForListDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

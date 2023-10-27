@@ -1,8 +1,9 @@
-import { Container, Grid, ThemeProvider, createTheme } from '@mui/material';
+import { Box, Grid, ThemeProvider, createTheme } from '@mui/material';
 import { red } from '@mui/material/colors';
 import React from 'react';
 import './App.css';
 import { ActivitiesList, ActivityDetails } from './features/activities';
+import { OslMap } from './features/tracks';
 
 function App() {
     const [activityId, setActivityId] = React.useState(null as number | null)
@@ -23,16 +24,19 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth="xl">
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
+            <Grid container spacing={2} direction="column" sx={{ height: 'calc(100vh - 4em)', width: 'calc(100vw - 4em)' }}>
+                <Grid container item spacing={3} alignItems="stretch" xs={12} sm={10} md={6} lg={6}>
+                    <Grid item xs={12} lg={8}>
                         <ActivitiesList athleteId={athleteId} onActivityIdChange={handleChangeActivity}></ActivitiesList>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} lg={4}>
                         <ActivityDetails activityId={activityId}></ActivityDetails>
                     </Grid>
                 </Grid>
-            </Container>
+                <Grid item spacing={3} alignItems="stretch" xs >
+                    <OslMap></OslMap>
+                </Grid>
+            </Grid>
         </ThemeProvider>
     )
 }
