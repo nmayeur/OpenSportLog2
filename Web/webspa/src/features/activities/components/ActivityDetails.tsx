@@ -52,8 +52,8 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation={3}>
-            <Grid container spacing={3}>
-                <Grid item xs={6}>
+            <Grid container spacing={1}>
+                <Grid item md={12}>
                     <TextField id="athleteName" label="Nom" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activity.name}
@@ -61,7 +61,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item md={12}>
                     <TextField id="athleteLocation" label="Lieu" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activity.location}
@@ -70,7 +70,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                         }} />
                 </Grid>
 
-                <Grid item xs={4}>
+                <Grid item md={6}>
                     <TextField id="athleteSport" label="Sport" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activitySport}
@@ -78,7 +78,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item md={6}>
                     <TextField id="athleteCalories" label="Calories" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activity.calories}
@@ -86,7 +86,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={6}>
                     <TextField id="athleteDateTime" label="Date/heure" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activityTime}
@@ -94,7 +94,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={6}>
                     <TextField id="athleteDuration" label="Dur&eacute;e" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activityDuration}
@@ -102,7 +102,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item md={3}>
                     <TextField id="athleteHr" label="HR" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activity.heartRate}
@@ -110,7 +110,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item md={3}>
                     <TextField id="temperature" label="Temp&eacute;rature" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activityTemperature}
@@ -118,7 +118,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={6}>
                     <TextField id="originSystem" label="Syst&egrave;me d'origine" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activity.originSystem}
@@ -126,7 +126,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item md={3}>
                     <TextField id="cadence" label="Cadence" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activity.cadence}
@@ -134,7 +134,7 @@ export const ActivityDetails = (props: ActivityDetailsProp) => {
                             readOnly: true,
                         }} />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item md={3}>
                     <TextField id="power" label="Puissance" variant="standard" fullWidth
                         InputLabelProps={{ shrink: true }}
                         value={activity.power}
