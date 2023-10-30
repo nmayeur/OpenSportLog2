@@ -25,6 +25,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Activity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ACTIVITY_SPORT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Athlete.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Queries\ITrackPointQueries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Queries\TrackPointQueries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Queries\TracksQueries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Queries\ActivityQueries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Queries\ITrackQueries.cs" />

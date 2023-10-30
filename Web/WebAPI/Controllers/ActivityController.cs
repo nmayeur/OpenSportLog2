@@ -26,10 +26,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("activitiesByAthlete")]
+        [Route("activitiesByAthleteId")]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<ActivityForListDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PaginatedItemsViewModel<ActivityForListDto>>> GetActivitiesByAthleteAsync(int athleteId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        public async Task<ActionResult<PaginatedItemsViewModel<ActivityForListDto>>> GetActivitiesByAthleteIdAsync(int athleteId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             _logger.Debug($"Called ActivitiesByAthleteAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
             var activities = await _activityQueries.GetActivitiesByAthleteAsync(athleteId, pageSize, pageIndex);

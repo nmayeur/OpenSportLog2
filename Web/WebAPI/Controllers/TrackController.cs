@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Common.Infrastructure.Log;
 using WebAPI.Common.Queries;
-using WebAPI.Common.ViewModel;
-using WebAPI.Dto;
+using WebAPI.Dto.Dto;
 
 namespace WebAPI.Controllers
 {
@@ -13,30 +12,28 @@ namespace WebAPI.Controllers
     [EnableCors]
     public class TrackController : ControllerBase
     {
-        private readonly ITrackQueries _trackQueries;
+        private readonly ITrackPointQueries _trackPointQueries;
         private readonly IMapper _mapper;
         private readonly ILoggerService _logger;
 
 
-        public TrackController(ITrackQueries trackQueries, IMapper mapper, ILoggerService logger)
+        public TrackController(ITrackPointQueries trackPointQueries, IMapper mapper, ILoggerService logger)
         {
-            _trackQueries = trackQueries ?? throw new ArgumentNullException(nameof(trackQueries));
+            _trackPointQueries = trackPointQueries ?? throw new ArgumentNullException(nameof(trackPointQueries));
             _mapper = mapper;
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("activitiesByAthlete")]
-        [ProducesResponseType(typeof(PaginatedItemsViewModel<TrackForListDto>), StatusCodes.Status200OK)]
+        [Route("trackPointsByActivityId")]
+        [ProducesResponseType(typeof(IList<TrackPointDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PaginatedItemsViewModel<TrackForListDto>>> GetTracksByActivityAsync(int activityId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        public async Task<ActionResult<IList<TrackPointDto>>> GetTrackPointsByActivityIdAsync([FromQuery] int activityId)
         {
-            _logger.Debug($"Called ActivitiesByAthleteAsync athleteId={activityId}, pgeSize={pageSize}, pageIndex={pageIndex}");
-            var activities = await _trackQueries.GetTracksByActivityAsync(activityId, pageSize, pageIndex);
-            var activitiesCount = await _trackQueries.GetTracksByActivityCountAsync(activityId);
-            var activityDtos = _mapper.Map<IList<TrackForListDto>>(activities);
-            var model = new PaginatedItemsViewModel<TrackForListDto>(pageIndex, pageSize, activitiesCount, activityDtos);
-            return model;
+            _logger.Debug($"Called GetTrackPointsByActivityIdAsync activityId={activityId}");
+            var trackPoints = await _trackPointQueries.GetTrackPointsFromActivityIdAsync(activityId);
+            var trackPointsDto = _mapper.Map<IList<TrackPointDto>>(trackPoints);
+            return new ActionResult<IList<TrackPointDto>>(trackPointsDto);
         }
 
     }

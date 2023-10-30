@@ -27,6 +27,7 @@ var services = builder.Services;
 
 // Dependency injection
 services.AddScoped<IActivityQueries>(sp => new ActivityQueries(builder.Configuration.GetConnectionString("OslDB") ?? ""));
+services.AddScoped<ITrackPointQueries>(sp => new TrackPointQueries(builder.Configuration.GetConnectionString("OslDB") ?? ""));
 services.AddSingleton<ILoggerService>(sp => new NLoggerService("WebApi"));
 
 // Mapping DTOs

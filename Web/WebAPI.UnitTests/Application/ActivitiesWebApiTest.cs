@@ -1,17 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebAPI.Common.Dto;
 using WebAPI.Common.Infrastructure.Log;
 using WebAPI.Common.Model;
 using WebAPI.Common.Queries;
 using WebAPI.Common.Utils;
-using WebAPI.Common.ViewModel;
+using WebAPI.Controllers;
+using WebAPI.Dto;
 
 namespace WebAPI.UnitTests.Application
 {
@@ -73,7 +67,7 @@ namespace WebAPI.UnitTests.Application
             //Act
             var logger = new NLoggerService("WebApiTest");
             var activityController = new ActivityController(_activityQueriesMock.Object, _mapper, logger);
-            var actionResult = await activityController.GetActivitiesByAthleteAsync(fakeAthleteId);
+            var actionResult = await activityController.GetActivitiesByAthleteIdAsync(fakeAthleteId);
 
             //Assert
             var expectedDtos = _mapper.Map<IList<ActivityDto>>(fakeActivities);

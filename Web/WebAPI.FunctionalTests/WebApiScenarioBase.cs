@@ -31,6 +31,14 @@ namespace WebAPI.FunctionalTests
             {
                 return $"api/activity/activityById?activityId={activityId}";
             }
+            public static string ActivitiesByAthleteId(int athleteId)
+            {
+                return $"api/activity/activitiesByAthleteId?athleteId={athleteId}";
+            }
+            public static string TrackPointsByActivityId(int activityId)
+            {
+                return $"api/track/trackPointsByActivityId?activityId={activityId}";
+            }
 
         }
     }

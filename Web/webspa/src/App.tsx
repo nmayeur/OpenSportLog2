@@ -1,4 +1,4 @@
-import { Box, Grid, ThemeProvider, createTheme } from '@mui/material';
+import { Grid, ThemeProvider, createTheme } from '@mui/material';
 import { red } from '@mui/material/colors';
 import React from 'react';
 import './App.css';
