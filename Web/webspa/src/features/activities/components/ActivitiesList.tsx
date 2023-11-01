@@ -1,5 +1,4 @@
 import { Paper } from "@mui/material";
-import React from "react";
 import useFetchActivitiesByAthlete from "../hooks/FetchActivitiesByAthlete";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 
@@ -98,14 +97,11 @@ export const ActivitiesList = (props: ActivitiesListProps) => {
         }
     ];
 
-    const [baseUrl] = React.useState(`https://osl-webapiapi-dev.azure-api.net/osl-dev/api`);
-    const [api_key] = React.useState("2d5915334aa74fb19fefe972c952c5d6");
-
-    const { rows, loading } = useFetchActivitiesByAthlete(baseUrl, api_key, props.athleteId);
+    const { rows, loading } = useFetchActivitiesByAthlete(props.athleteId);
 
     const handleSelection = (row: GridRowSelectionModel) => {
         const rowId = row[0]
-        console.log(rowId)
+        console.log(`selected row ${rowId}`)
         props.onActivityIdChange(rowId as number)
     }
 

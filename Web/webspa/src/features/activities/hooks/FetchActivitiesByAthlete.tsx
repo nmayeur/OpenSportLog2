@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IPaginatedItemsViewModel } from "../../../types/IPaginatedItemsViewModel";
 import { GridRowsProp } from "@mui/x-data-grid";
+import { ApiConfigContext } from "../../../contexts/ApiConfigContext";
 
 
 interface IAthleteDto {
@@ -19,18 +20,19 @@ interface IActivityDto {
     timeSpanTicks: number;
 }
 
-const useFetchActivitiesByAthlete = (baseUrl: string, api_key: string, athleteId: number) => {
+const useFetchActivitiesByAthlete = (athleteId: number) => {
     console.log(`Calling useFetchActivitiesByAthlete for athleteId ${athleteId}`)
+    const apiConfig = useContext(ApiConfigContext);
     const [rows, setrows] = useState<GridRowsProp>([] as GridRowsProp);
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
-            const url = `${baseUrl}/Activity/activitiesByAthlete?athleteId=${athleteId}&pageSize=10&pageIndex=0`
+            const url = `${apiConfig.baseUrl}/Activity/activitiesByAthleteId?athleteId=${athleteId}&pageSize=10&pageIndex=0`
             console.log(`URL : ${url}`)
             const requestHeaders: HeadersInit = new Headers();
-            requestHeaders.set('Ocp-Apim-Subscription-Key', api_key);
+            requestHeaders.set('Ocp-Apim-Subscription-Key', apiConfig.apiKey);
             const data = await fetch(url, { headers: requestHeaders })
             const _rows: IPaginatedItemsViewModel<IActivityDto> = await data.json() as IPaginatedItemsViewModel<IActivityDto>;
 
@@ -40,7 +42,7 @@ const useFetchActivitiesByAthlete = (baseUrl: string, api_key: string, athleteId
                     id: activity.id,
                     name: activity.name,
                     location: activity.location,
-                    athlete: activity.athlete.name,
+                    athlete: { id: activity.athlete.id, name: activity.athlete.name },
                     sport: activity.sport,
                     temperature: activity.temperature,
                     time: activity.time,
@@ -60,7 +62,7 @@ const useFetchActivitiesByAthlete = (baseUrl: string, api_key: string, athleteId
             }
 
         });
-    }, [baseUrl, api_key, athleteId]);
+    }, [apiConfig, athleteId]);
 
     return { rows, loading, error };
 };

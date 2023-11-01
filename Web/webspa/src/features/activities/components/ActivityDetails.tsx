@@ -1,6 +1,6 @@
 import { Grid, Paper, TextField } from "@mui/material"
 import useFetchActivityById from "../hooks/FetchActivityById";
-import React from "react";
+import { useEffect, useState } from "react";
 
 interface ActivityDetailsProp {
     activityId: number | null;
@@ -8,29 +8,28 @@ interface ActivityDetailsProp {
 
 export const ActivityDetails = (props: ActivityDetailsProp) => {
 
-    const [baseUrl] = React.useState(`https://osl-webapiapi-dev.azure-api.net/osl-dev/api`);
-    const [api_key] = React.useState("2d5915334aa74fb19fefe972c952c5d6");
+    const { activity } = useFetchActivityById(props.activityId);
+    const [activitySport, setActivitySport] = useState("-")
 
-    const { activity } = useFetchActivityById(baseUrl, api_key, props.activityId);
-
-    let activitySport = "-"
-    switch (activity.sport) {
-        case 0:
-            activitySport = "Autre"
-            break;
-        case 1:
-            activitySport = "Course \u00e0 pied"
-            break;
-        case 2:
-            activitySport = "Cyclisme"
-            break;
-        case 3:
-            activitySport = "Natation"
-            break;
-        case 4:
-            activitySport = "Randonn\u00e9e"
-            break;
-    }
+    useEffect(() => {
+        switch (activity.sport) {
+            case 0:
+                setActivitySport("Autre")
+                break;
+            case 1:
+                setActivitySport("Course \u00e0 pied")
+                break;
+            case 2:
+                setActivitySport("Cyclisme")
+                break;
+            case 3:
+                setActivitySport("Natation")
+                break;
+            case 4:
+                setActivitySport("Randonn\u00e9e")
+                break;
+        }
+    }, [activity.sport])
 
     let activityTemperature = "-"
     if (activity.temperature || activity.temperature === 0) {

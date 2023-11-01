@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PaginatedItemsViewModel<ActivityForListDto>>> GetActivitiesByAthleteIdAsync(int athleteId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
-            _logger.Debug($"Called ActivitiesByAthleteAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
+            _logger.Debug($"Called ActivitiesByAthleteIdAsync athleteId={athleteId}, pgeSize={pageSize}, pageIndex={pageIndex}");
             var activities = await _activityQueries.GetActivitiesByAthleteAsync(athleteId, pageSize, pageIndex);
             var activitiesCount = await _activityQueries.GetActivitiesByAthleteCountAsync(athleteId);
             var activityDtos = _mapper.Map<IList<ActivityForListDto>>(activities);

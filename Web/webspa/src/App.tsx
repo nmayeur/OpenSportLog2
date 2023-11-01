@@ -1,12 +1,12 @@
 import { Grid, ThemeProvider, createTheme } from '@mui/material';
 import { red } from '@mui/material/colors';
-import React from 'react';
+import { useState } from 'react';
 import './App.css';
 import { ActivitiesList, ActivityDetails } from './features/activities';
 import { OslMap } from './features/tracks';
 
 function App() {
-    const [activityId, setActivityId] = React.useState(null as number | null)
+    const [activityId, setActivityId] = useState(null as (number | null))
     const athleteId = 1
 
     const theme = createTheme({
@@ -34,7 +34,7 @@ function App() {
                     </Grid>
                 </Grid>
                 <Grid item spacing={3} alignItems="stretch" xs >
-                    <OslMap></OslMap>
+                    <OslMap activityId={activityId}></OslMap>
                 </Grid>
             </Grid>
         </ThemeProvider>

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ApiConfigContext } from "../../../contexts/ApiConfigContext";
 
 
 interface IAthleteDto {
@@ -22,25 +23,26 @@ interface IActivityDto {
     power: number;
 }
 
-const useFetchActivityById = (baseUrl: string, api_key: string, activityId: number | null) => {
-    console.log(`Calling useFetchActivityById for athleteId ${activityId}`)
+const useFetchActivityById = (activityId: number | null) => {
+    console.log(`Calling useFetchActivityById for activityId ${activityId}`)
 
+    const apiConfig = useContext(ApiConfigContext);
     const [activity, setActivity] = useState<IActivityDto>({} as IActivityDto);
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState("");
 
     useEffect(() => {
         if (activityId === null) {
-            console.error("activityId is null")
+            console.debug("activityId is null")
             seterror("activityId is null")
             return
         }
 
         const fetchData = async () => {
-            const url = `${baseUrl}/Activity/activityById?activityId=${activityId}`
+            const url = `${apiConfig.baseUrl}/Activity/activityById?activityId=${activityId}`
             console.log(`URL : ${url}`)
             const requestHeaders: HeadersInit = new Headers();
-            requestHeaders.set('Ocp-Apim-Subscription-Key', api_key);
+            requestHeaders.set('Ocp-Apim-Subscription-Key', apiConfig.apiKey);
             const data = await fetch(url, { headers: requestHeaders })
             const dto = await data.json() as IActivityDto
             if (dto.time) {
@@ -60,7 +62,7 @@ const useFetchActivityById = (baseUrl: string, api_key: string, activityId: numb
             }
 
         });
-    }, [baseUrl, api_key, activityId]);
+    }, [apiConfig, activityId]);
 
     return { activity, loading, error };
 };

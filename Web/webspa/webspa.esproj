@@ -12,5 +12,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\hooks\" />
+    <Folder Include="src\contexts\" />
   </ItemGroup>
 </Project>
