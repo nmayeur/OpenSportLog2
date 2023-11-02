@@ -42,12 +42,16 @@ export const OslMapTrack = (props: OslMapTrackProps) => {
 
     useEffect(() => {
         if (!lineString || !map) { return }
-        if (lineString.toGeoJSON().bbox) {
+        const geoJson = lineString.toGeoJSON();
+        if (geoJson.type === "FeatureCollection" && geoJson.features.length > 0) {
             map.removeLayer(lineString)
         }
         return () => {
-            lineString.addTo(map)
-            map.fitBounds(lineString.getBounds())
+            const geoJson = lineString.toGeoJSON();
+            if (geoJson.type === "FeatureCollection" && geoJson.features.length > 0) {
+                lineString.addTo(map)
+                map.fitBounds(lineString.getBounds())
+            }
         }
     }, [lineString, map])
 

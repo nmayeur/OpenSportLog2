@@ -1,9 +1,10 @@
-import { Grid, ThemeProvider, createTheme } from '@mui/material';
+import { Grid, Stack, ThemeProvider, createTheme } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { useState } from 'react';
 import './App.css';
 import { ActivitiesList, ActivityDetails } from './features/activities';
 import { OslMap } from './features/tracks';
+import { OslAppBar } from './features/appBar';
 
 function App() {
     const [activityId, setActivityId] = useState(null as (number | null))
@@ -24,7 +25,8 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid container spacing={2} direction="column" sx={{ height: 'calc(100vh - 4em)', width: 'calc(100vw - 4em)' }}>
+            <Stack sx={{ height: 'calc(100vh - 4em)', width: 'calc(100vw - 4em)' }} spacing={2}>
+                <OslAppBar></OslAppBar>
                 <Grid container item spacing={3} alignItems="stretch" xs={12} sm={10} md={6} lg={6}>
                     <Grid item xs={12} lg={8}>
                         <ActivitiesList athleteId={athleteId} onActivityIdChange={handleChangeActivity}></ActivitiesList>
@@ -33,10 +35,8 @@ function App() {
                         <ActivityDetails activityId={activityId}></ActivityDetails>
                     </Grid>
                 </Grid>
-                <Grid item spacing={3} alignItems="stretch" xs >
-                    <OslMap activityId={activityId}></OslMap>
-                </Grid>
-            </Grid>
+                <OslMap activityId={activityId}></OslMap>
+            </Stack>
         </ThemeProvider>
     )
 }
